@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.cw.b5.product.ProductMapper">
+  	<select id="getSelectList" resultMap="getSelectListResult">
+  	  	select P.*, PF.* from product P left join productfiles PF 
+  	  	on P.num=PF.product_num
+  	</select>
+  	
+  	<resultMap type="ProductVO" id="getSelectListResult">
+  		<id column="num" property="num"/>
+  		<result column="name" property="name"/>
+  		<result column="price" property="price"/>
+  		<result column="information" property="information"/>
+  		<association property="productFilesVO" javaType="ProductFilesVO">
+  			<id column="fileNum" property="fileNum"/>
+  			<result column="product_num" property="product_num"/>
+  			<result column="fileName" property="fileName"/>
+  			<result column="oriName" property="oriName"/>
+  		</association>
+  	</resultMap>
+  	
+  
+  </mapper>
