@@ -3,6 +3,7 @@ package com.cw.b5.member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cw.b5.util.FileManager;
@@ -18,16 +19,19 @@ public class MemberService {
 	
 	public int setInsert(MemberVO memberVO, MultipartFile files) throws Exception {
 		int result = memberRepository.setInsert(memberVO);
+		System.out.println(result);
 		
-		if(!files.isEmpty()) {			
+		if(!files.isEmpty()) {
+			String fileName = fileManager.getUseServletContext("upload/member", files);
 			MemberFilesVO memberFilesVO = new MemberFilesVO();
 			memberFilesVO.setMember_id(memberVO.getId());
-			String fileName = fileManager.getUseServletContext("/upload/member/", files);
 			memberFilesVO.setFileName(fileName);
 			memberFilesVO.setOriName(files.getOriginalFilename());
+			
 			result = memberRepository.setFileInsert(memberFilesVO);
-			if(result==0) { //insert가 되지 않았다면
-				throw new Exception(); //예외 강제 발생
+			
+			if(result==0) {
+				throw new Exception();
 			}
 		}
 		
@@ -36,6 +40,24 @@ public class MemberService {
 	
 	public MemberVO getSelectOne(MemberVO memberVO) throws Exception {
 		return memberRepository.getSelectOne(memberVO);
+	}
+	
+	public boolean memberError(MemberVO memberVO, BindingResult bindingResult)throws Exception{
+		boolean check=false;
+		//false : 검증 성공
+		//true  : 검증 실패(위반이 있음)
+		
+		//1. Annotation 검증
+		check = bindingResult.hasErrors();
+		
+		//2. password가 일치하는지 검증
+		if(!memberVO.getPw().equals(memberVO.getPwCheck())) {
+			bindingResult.rejectValue("pwCheck", "pwCheck");
+			check=true;
+		}
+		//3. Id 중복 검증
+		
+		return check;
 	}
 
 }

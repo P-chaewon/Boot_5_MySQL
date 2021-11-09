@@ -12,7 +12,7 @@ import com.cw.b5.board.BoardVO;
 class QnaMapperTest {
 
 	@Autowired
-	private QnaMapper qnaMapper;
+	private QnaRepository qnaRepository;
 	
 //	@Test
 	void setInsertTest() throws Exception {
@@ -21,7 +21,7 @@ class QnaMapperTest {
 		boardVO.setContents("qna_contents3");
 		boardVO.setWriter("qna_writer3");
 		
-		int result = qnaMapper.setInsert(boardVO);
+		int result = qnaRepository.setInsert(boardVO);
 		
 		assertNotEquals(0, result);
 	}
@@ -32,7 +32,7 @@ class QnaMapperTest {
 		boardVO.setTitle("update_title");
 		boardVO.setNum(2);
 		boardVO.setContents("update_contents");
-		int result = qnaMapper.setUpdate(boardVO);
+		int result = qnaRepository.setUpdate(boardVO);
 		
 		assertNotEquals(0, result);
 	}
@@ -41,7 +41,7 @@ class QnaMapperTest {
 	void setHitUpdate() throws Exception {
 		BoardVO boardVO = new BoardVO();
 		boardVO.setNum(1);
-		int result = qnaMapper.setHitUpdate(boardVO);
+		int result = qnaRepository.setHitUpdate(boardVO);
 		
 		assertNotEquals(0, result);
 	}

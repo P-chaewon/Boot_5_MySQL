@@ -28,6 +28,8 @@ public class NoticeService implements BoardService{
 //		fileManager.getUseResourceLoader("upload/notice/", files[0]);
 //		fileManager.getUseClassPathResource("upload/notice/", files[0]);
 		int result = noticeMapper.setInsert(boardVO);
+		System.out.println("check");
+		System.out.println(files.length);
 		for(MultipartFile multipartFile:files) {
 			//multipartFile.isEmpty()
 			if(multipartFile.getSize()==0L) {

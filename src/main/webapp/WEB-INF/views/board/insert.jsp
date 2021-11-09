@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,7 @@
 </head>
 <body>
 	<h1>${board } Insert Page</h1>
+	
 	<form action="./insert" method="post" enctype="multipart/form-data">
 		title : <input type="text" name="title"><br>
 		writer : <input type="text" name="writer"><br>
@@ -18,6 +20,8 @@
 		
 		<button type="submit">Write</button>
 	</form>
+	
+
 	
 </body>
 </html>

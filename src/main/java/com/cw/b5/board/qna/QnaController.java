@@ -36,7 +36,7 @@ public class QnaController {
 	public String setInsert(BoardVO boardVO, MultipartFile[] files) throws Exception {
 		int result = qnaService.setInsert(boardVO, files);
 		
-		return "redirect:./list";
+		return "redirect:./selectList";
 	}
 	
 	
