@@ -2,9 +2,12 @@ package com.cw.b5.board.qna;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,17 +31,35 @@ public class QnaController {
 	}
 	
 	@GetMapping("insert")
-	public String setInsert() throws Exception {
+	public String setInsert(@ModelAttribute BoardVO boardVO) throws Exception {
 		return "board/insert";
 	}
 	
 	@PostMapping("insert")
-	public String setInsert(BoardVO boardVO, MultipartFile[] files) throws Exception {
+	public String setInsert(@Valid BoardVO boardVO, BindingResult bindingResult, MultipartFile[] files) throws Exception {
+		if(bindingResult.hasErrors()) {
+			return "board/insert";
+		}
 		int result = qnaService.setInsert(boardVO, files);
 		
 		return "redirect:./selectList";
 	}
 	
+	@GetMapping("reply")
+	public String reply(@ModelAttribute BoardVO boardVO) throws Exception {
+		return "board/reply";
+	}
+	
+	@PostMapping("reply")
+	public String reply(@Valid BoardVO boardVO, BindingResult bindingResult, MultipartFile [] files)throws Exception {
+		if(bindingResult.hasErrors()) {
+			return "board/reply";
+		}
+		
+		int result = qnaService.setReplyInsert(boardVO, files);
+		
+		return "redirect:./selectList";
+	}
 	
 	@GetMapping("update")
 	public String setUpdate(BoardVO boardVO, Model model) throws Exception {
@@ -56,7 +77,7 @@ public class QnaController {
 	@GetMapping("delete")
 	public String setDelete(BoardVO boardVO) throws Exception {
 		int result = qnaService.setDelete(boardVO);
-		return "redirect:./list";
+		return "redirect:./selectList";
 	}
 	
 	@GetMapping("selectOne")

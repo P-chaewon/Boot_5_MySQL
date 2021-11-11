@@ -1,5 +1,7 @@
 package com.cw.b5.member;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,10 +54,22 @@ public class MemberService {
 		
 		//2. password가 일치하는지 검증
 		if(!memberVO.getPw().equals(memberVO.getPwCheck())) {
-			bindingResult.rejectValue("pwCheck", "pwCheck");
+			bindingResult.rejectValue("pwCheck", "member.password.notEqual");
 			check=true;
 		}
 		//3. Id 중복 검증
+		List<MemberVO> idList = memberRepository.getSelectList();
+		for(MemberVO vo : idList) {
+			if(memberVO.getId().equals(vo.getId())) {
+				bindingResult.rejectValue("id", "idCheck");
+				check=true;
+			}
+		}
+//		memberVO = memberRepository.getSelect(memberVO);
+//		if(memberVO != null) {
+//			bindingResult.rejectValue("id", "idCheck");
+//			check=true;
+//		}
 		
 		return check;
 	}
