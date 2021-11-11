@@ -1,5 +1,6 @@
 package com.cw.b5.member;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.validation.constraints.Email;
@@ -10,11 +11,13 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.Data;
 
 @Data
-public class MemberVO {
+public class MemberVO implements UserDetails{
 	
 	@NotBlank
 	private String id;//비어있으면 X
@@ -33,8 +36,53 @@ public class MemberVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birth;//생년월일 현재보다 과거이어야 함
 	private String role;
+	private boolean enabled;
 	
 	private MemberFilesVO memberFilesVO;
+	
+	
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return this.pw;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return this.id;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return this.enabled;
+	}
 	
 	
 	
