@@ -11,7 +11,7 @@ public interface MemberRepository {
 	
 	public int setFileInsert(MemberFilesVO memberfilesVO) throws Exception;
 	
-	public MemberVO getSelectOne(MemberVO memberVO) throws Exception;
+	public MemberVO getSelectOne(String username) throws Exception;
 	
 	public List<MemberVO> getSelectList() throws Exception;
 }

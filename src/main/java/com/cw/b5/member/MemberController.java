@@ -29,26 +29,28 @@ public class MemberController {
 		if(memberService.memberError(memberVO, bindingResult)) {
 			return "member/memberJoin";
 		}
-	//	int result = memberService.setInsert(memberVO, files);
+		int result = memberService.setInsert(memberVO, files);
 		
 		return "redirect:../";
 	}
 	
 	@GetMapping("memberLogin")
 	public String getSelectOne() throws Exception {
+		System.out.println("Member Login");
 		return "member/memberLogin";
 	}
 	
-	@PostMapping("memberLogin")
-	public String getSelectOne(MemberVO memberVO, HttpSession session) throws Exception {
-		memberVO = memberService.getSelectOne(memberVO);
-		if(memberVO!=null) {
-			System.out.println("로그인 성공");
-			session.setAttribute("member", memberVO);
-		}
-		
-		return "redirect:../";
-	}
+//	@PostMapping("memberLogin")
+//	public String getSelectOne(MemberVO memberVO, HttpSession session) throws Exception {
+//		System.out.println("Member Login Process");
+//		memberVO = memberService.getSelectOne(memberVO);
+//		if(memberVO!=null) {
+//			System.out.println("로그인 성공");
+//			session.setAttribute("member", memberVO);
+//		}
+//		
+//		return "redirect:../";
+//	}
 	
 	@GetMapping("memberLogout")
 	public String getLogout(HttpSession session) throws Exception {

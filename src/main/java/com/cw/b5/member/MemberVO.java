@@ -1,7 +1,9 @@
 package com.cw.b5.member;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -12,6 +14,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.Data;
@@ -40,12 +43,16 @@ public class MemberVO implements UserDetails{
 	
 	private MemberFilesVO memberFilesVO;
 	
-	
+	private List<RoleVO> roles;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		return null;
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		for(RoleVO roleVO:roles) {
+			authorities.add(new SimpleGrantedAuthority(roleVO.getRoleName()));
+		}
+		return authorities;
 	}
 
 	@Override

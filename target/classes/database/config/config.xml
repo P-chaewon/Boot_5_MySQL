@@ -16,5 +16,6 @@
   		<typeAlias type="com.cw.b5.member.MemberFilesVO" alias="MemberFilesVO"/>
   		<typeAlias type="com.cw.b5.product.ProductVO" alias="ProductVO"/>
   		<typeAlias type="com.cw.b5.product.ProductFilesVO" alias="ProductFilesVO"/>
+  		<typeAlias type="com.cw.b5.member.RoleVO" alias="RoleVO"/>
   	</typeAliases>
   </configuration>

@@ -5,13 +5,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootTest
 class MemberMapperTest {
 
 	@Autowired
 	private MemberRepository memberRepository;
-	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 //	@Test
 	void setInsertTest() throws Exception {
 		MemberVO memberVO = new MemberVO();
