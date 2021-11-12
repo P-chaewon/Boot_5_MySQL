@@ -42,6 +42,10 @@
   	<select id="getSelectList" resultType="MemberVO">
   		select member.id from member
   	</select>
-  
+  	
+  	<insert id="setMemberRoleInsert" parameterType="java.util.Map">
+  		insert into member_role (id, num) 
+  		values (#{id}, #{num})
+  	</insert>
 
   </mapper>

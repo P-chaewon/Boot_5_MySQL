@@ -39,7 +39,7 @@ public class MemberVO implements UserDetails{
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birth;//생년월일 현재보다 과거이어야 함
 	private String role;
-	private boolean enabled;
+	private boolean enabled;  //0(false) 사용 불가 유저, 1(true) 사용 가능 유저
 	
 	private MemberFilesVO memberFilesVO;
 	

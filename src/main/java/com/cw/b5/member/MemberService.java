@@ -1,6 +1,8 @@
 package com.cw.b5.member;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,6 +34,13 @@ public class MemberService implements UserDetailsService{
 		memberVO.setEnabled(true);
 		
 		int result = memberRepository.setInsert(memberVO);
+
+		//Member_Role 추가
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", memberVO.getId());
+		map.put("num", 2);
+		result = memberRepository.setMemberRoleInsert(map);
+		
 		
 		System.out.println(result);
 		

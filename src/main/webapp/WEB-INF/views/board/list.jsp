@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,7 +59,16 @@
 		<button class="p" data-list-pn="${pager.lastNum+1}">Next</button>
 	</c:if>
 	<br>	
-	<a href="./insert">Write</a>
+	<c:if test="${board eq 'notice'}">
+		<sec:authorize access="hasRole('ADMIN')">
+			<a href="./insert">Write</a>
+		</sec:authorize>
+	</c:if>
+	<c:if test="${board ne 'notice'}">
+		<sec:authorize access="hasRole('MEMBER')">
+			<a href="./insert">Write</a>
+		</sec:authorize>
+	</c:if>
 	
 	<script type="text/javascript" src="../js/list.js"></script>
 	<script type="text/javascript">

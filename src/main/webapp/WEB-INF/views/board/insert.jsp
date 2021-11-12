@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,8 +20,9 @@
 				<label for="title">Title</label>
 				<form:errors path="title" cssStyle="invalid-feedback"></form:errors>				
 			</div>
+			<sec:authentication property="principal.id" var="id"/>
 			<div class=" form-floating mb-3">
-				<form:input path="writer" id="writer" placeholder="Enter writer" cssClass="form-control"/>
+				<input type="text" id="writer" placeholder="Enter writer" value="${id}" class="form-control" readonly="readonly">
 				<label for="writer">Writer</label>
 				<form:errors path="writer" cssStyle="color:red;"></form:errors>
 			</div>
